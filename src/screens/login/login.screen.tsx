@@ -4,24 +4,8 @@ import mixins from "../../utils/styleMixins";
 import { View, Text } from "react-native";
 import FormInput from "../../components/formInput/formInput.component";
 import CustomButton from "../../components/cutom-button/cutom-button.component";
-import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-native";
 import { UserContext } from "../../contexts/user.context";
-
-const LOGIN_USER = gql`
-  mutation Login($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
-      user {
-        email
-        firstName
-        id
-        lastName
-        role
-      }
-    }
-  }
-`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,7 +15,7 @@ const Login = () => {
   const { user, tryLogin } = useContext(UserContext);
 
   useEffect(() => {
-    if (user) navigate("/home");
+    if (user) navigate("/rooms");
   }, [user]);
 
   return (
