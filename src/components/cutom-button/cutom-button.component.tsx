@@ -1,6 +1,6 @@
 import styles from "./custom-button.styles";
 import { FC } from "react";
-import { View, Text } from "react-native";
+import { Text, Pressable } from "react-native";
 
 type props = {
   handler: Function;
@@ -11,9 +11,9 @@ const CustomButton: FC<props> = ({ handler, title }) => {
   const touchHandler = () => handler();
 
   return (
-    <View onTouchEnd={touchHandler} style={styles.button}>
+    <Pressable onPress={touchHandler} style={styles.button}>
       <Text style={styles.text}>{title}</Text>
-    </View>
+    </Pressable>
   );
 };
 

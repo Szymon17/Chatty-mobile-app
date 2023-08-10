@@ -5,12 +5,13 @@ export default StyleSheet.create({
   navTitle: {
     color: secondaryColor,
     fontSize: 30,
-    fontWeight: "700",
+    fontWeight: "800",
   },
 
   titleContainer: {
     width: "100%",
     height: "20%",
+    maxHeight: 200,
     paddingHorizontal: 10,
     display: "flex",
     justifyContent: "flex-end",
@@ -27,9 +28,23 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  button: {
-    height: 30,
-    backgroundColor: secondaryColor,
-    color: "white",
+  iconsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+  },
+
+  icon: {
+    width: 0,
+    height: 0,
+  },
+
+  route: {
+    height: "100%",
+    display: "flex",
+  },
+
+  routeBody: {
+    flexGrow: 1,
   },
 });

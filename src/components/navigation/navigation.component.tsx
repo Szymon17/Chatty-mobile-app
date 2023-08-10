@@ -1,9 +1,9 @@
 import styles from "./navigation.styles";
-import { FC, JSX } from "react";
+import { FC, ReactNode } from "react";
 import { View } from "react-native";
 
 type props = {
-  children?: JSX.Element;
+  children?: ReactNode;
 };
 
 const Navigation: FC<props> = ({ children }) => {

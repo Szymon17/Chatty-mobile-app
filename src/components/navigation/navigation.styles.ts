@@ -1,12 +1,10 @@
 import { StyleSheet } from "react-native";
 import { primaryColor } from "../../utils/styleVaribles";
+import styleMixins from "../../utils/styleMixins";
 
 const styles = StyleSheet.create({
   navigation: {
-    paddingTop: "10%",
-    height: "20%",
-    maxHeight: 200,
-    width: "100%",
+    ...styleMixins.titleContainer,
     backgroundColor: primaryColor,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
@@ -14,7 +12,11 @@ const styles = StyleSheet.create({
 
   container: {
     width: "100%",
+    height: "65%",
     padding: 10,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

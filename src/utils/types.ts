@@ -5,3 +5,17 @@ export type userType = {
   lastName: string;
   role: string;
 };
+
+export type singleRoomType = {
+  id: string;
+  name: string;
+};
+
+export type roomsType = {
+  rooms: singleRoomType[];
+  user: userType;
+};
+
+export type queryRoomsType = {
+  usersRooms: roomsType;
+};

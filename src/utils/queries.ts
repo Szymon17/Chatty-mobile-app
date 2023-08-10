@@ -14,3 +14,17 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const GET_ROOMS = gql`
+  {
+    usersRooms {
+      rooms {
+        name
+        id
+      }
+      user {
+        firstName
+      }
+    }
+  }
+`;

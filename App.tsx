@@ -4,6 +4,7 @@ import { UserProvider } from "./src/contexts/user.context";
 import Login from "./src/screens/login/login.screen";
 import Rooms from "./src/screens/rooms/rooms.screen";
 import client from "./src/utils/gql.config";
+import Chat from "./src/screens/chat/chat.screen";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
           <Routes>
             <Route index element={<Login />} />
             <Route path="/rooms" element={<Rooms />} />
+            <Route path="/rooms/*" element={<Chat />} />
           </Routes>
         </NativeRouter>
       </UserProvider>
