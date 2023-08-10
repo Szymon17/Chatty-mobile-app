@@ -1,4 +1,4 @@
-import { secondaryColor } from "./styleVaribles";
+import { primaryColor, primaryColorLighter, secondaryColor } from "./styleVaribles";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
@@ -10,8 +10,7 @@ export default StyleSheet.create({
 
   titleContainer: {
     width: "100%",
-    height: "20%",
-    maxHeight: 200,
+    height: 120,
     paddingHorizontal: 10,
     display: "flex",
     justifyContent: "flex-end",
@@ -42,6 +41,7 @@ export default StyleSheet.create({
   route: {
     height: "100%",
     display: "flex",
+    backgroundColor: primaryColorLighter,
   },
 
   routeBody: {

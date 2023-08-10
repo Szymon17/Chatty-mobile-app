@@ -22,8 +22,24 @@ export const GET_ROOMS = gql`
         name
         id
       }
+    }
+  }
+`;
+
+export const GET_ROOM = gql`
+  query GetRoom($ID: ID!) {
+    room(id: $ID) {
+      id
       user {
+        id
         firstName
+        lastName
+      }
+      messages {
+        body
+        user {
+          id
+        }
       }
     }
   }

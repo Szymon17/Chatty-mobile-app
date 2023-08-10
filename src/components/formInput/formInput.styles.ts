@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import { secondaryColor } from "../../utils/styleVaribles";
 
 const styles = StyleSheet.create({
   formInput: {
-    marginTop: 30,
+    width: "100%",
     position: "relative",
   },
 
@@ -22,6 +23,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     paddingHorizontal: 10,
+  },
+
+  inputFocus: {
+    borderWidth: 2,
+    borderColor: secondaryColor,
   },
 
   secureBox: {

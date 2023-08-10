@@ -19,3 +19,22 @@ export type roomsType = {
 export type queryRoomsType = {
   usersRooms: roomsType;
 };
+
+type userSnapshot = {
+  firstName: string;
+  lastName: string;
+  id: string;
+};
+
+export type messageSnapshot = {
+  body: string;
+  user: userSnapshot;
+};
+
+export type roomSnapshot = {
+  id: string;
+  messages: messageSnapshot[];
+  user: userSnapshot;
+};
+
+export type queryRoomType = { room: roomSnapshot };
