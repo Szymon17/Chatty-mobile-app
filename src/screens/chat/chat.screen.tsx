@@ -3,8 +3,8 @@ import mixins from "../../utils/styleMixins";
 import { useEffect, useState, useRef } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
-import { useQuery } from "@apollo/client";
-import { GET_ROOM } from "../../utils/queries";
+import { useQuery, useSubscription } from "@apollo/client";
+import { GET_ROOM, OnMessageAdded } from "../../utils/queries";
 import { messageSnapshot, queryRoomType } from "../../utils/types";
 import Navigation from "../../components/navigation/navigation.component";
 import FormInput from "../../components/formInput/formInput.component";
@@ -24,6 +24,15 @@ const Chat = () => {
   const { data, error } = useQuery<queryRoomType>(GET_ROOM, { variables: { ID } });
   const [sendMessage, setSendMessage] = useState("");
   const [messages, setMessages] = useState<messageSnapshot[]>([]);
+
+  const subscription = useSubscription(OnMessageAdded, { variables: { RoomID: ID } });
+  const subData = subscription.data;
+  const suberror = subscription.error;
+  const subLoading = subscription.loading;
+
+  useEffect(() => {
+    console.log(subData, suberror, subLoading);
+  }, [subData, suberror]);
 
   useEffect(() => {
     if (data) setMessages(Array(...data.room.messages).reverse());

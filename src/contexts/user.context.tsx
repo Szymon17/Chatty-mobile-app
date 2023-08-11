@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/queries";
 import { userType } from "../utils/types";
-import * as SecureStore from "expo-secure-store";
+import SyncStorage from "sync-storage";
 
 type userContext = {
   user: userType | null;
@@ -29,7 +29,7 @@ export const UserProvider: FC<{ children: ReactNode }> = ({ children }) => {
       const { user, token } = data.loginUser;
       if (user && token) {
         setUser(user);
-        SecureStore.setItemAsync("token", token);
+        SyncStorage.set("token", token);
       }
     }
   }, [data]);
