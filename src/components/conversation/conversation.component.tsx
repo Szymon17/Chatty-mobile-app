@@ -1,9 +1,8 @@
 import styles from "./conversation.styles";
 import { FC } from "react";
 import { View, Text, Pressable } from "react-native";
-import { profile } from "../../../assets/icons/icons";
-import { SvgXml } from "react-native-svg";
 import { useNavigate } from "react-router-native";
+import Profile from "../../../assets/icons/profile.svg";
 
 export type props = {
   id: string;
@@ -26,7 +25,7 @@ const Conversation: FC<props> = ({ id, name, lastMessage, lastMessageDate, newMe
 
   return (
     <Pressable onPress={() => navigate(id)} style={[styles.conversation, newMessage && styles.newMessageBackground]}>
-      <SvgXml xml={profile} />
+      <Profile />
       <View style={styles.description}>
         <Text style={[styles.conversationTitle, newMessage && styles.newMessageText]}>{name}</Text>
         <Text style={[styles.lastMessage, newMessage && styles.newMessageText]}>{lastMessage}</Text>

@@ -1,8 +1,8 @@
 import styles from "./formInput.styles";
 import { FC, useState, useEffect, useRef } from "react";
 import { TextInput, View, Text, TextInputProps, StyleProp, TextStyle } from "react-native";
-import { SvgXml } from "react-native-svg";
-import { vision, visionLow } from "../../../assets/icons/icons";
+import VisionLowIcon from "../../../assets/icons/vision-low.svg";
+import VisionIcon from "../../../assets/icons/vision.svg";
 
 type params = TextInputProps & {
   label?: string;
@@ -35,7 +35,7 @@ const FormInput: FC<params> = ({ label, secureText, aditionalInputStyles, clear,
       ></TextInput>
       {secureText && (
         <View style={styles.secureBox}>
-          <SvgXml onPress={() => setSecureState(!isSecure)} xml={isSecure ? visionLow : vision} />
+          {isSecure ? <VisionLowIcon onPress={() => setSecureState(!isSecure)} /> : <VisionIcon onPress={() => setSecureState(!isSecure)} />}
         </View>
       )}
     </View>

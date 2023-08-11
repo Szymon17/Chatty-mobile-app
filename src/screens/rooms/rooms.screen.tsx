@@ -4,8 +4,8 @@ import { queryRoomsType } from "../../utils/types";
 import { View, Text } from "react-native";
 import { GET_ROOMS } from "../../utils/queries";
 import { useQuery } from "@apollo/client";
-import { SvgXml } from "react-native-svg";
-import { rooms, search } from "../../../assets/icons/icons";
+import RoomsIcon from "../../../assets/icons/rooms.svg";
+import SearchIcon from "../../../assets/icons/search.svg";
 import Conversation from "../../components/conversation/conversation.component";
 import Navigation from "../../components/navigation/navigation.component";
 
@@ -17,8 +17,8 @@ const Rooms = () => {
       <Navigation>
         <Text style={mixins.navTitle}>Rooms</Text>
         <View style={mixins.iconsContainer}>
-          <SvgXml xml={search} />
-          <SvgXml xml={rooms} />
+          <SearchIcon />
+          <RoomsIcon />
         </View>
       </Navigation>
       <View style={styles.conversations}>
