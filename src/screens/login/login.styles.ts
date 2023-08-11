@@ -3,6 +3,11 @@ import { primaryColor } from "../../utils/styleVaribles";
 import mixins from "../../utils/styleMixins";
 
 const styles = StyleSheet.create({
+  title: {
+    ...mixins.titleContainer,
+    height: "20%",
+  },
+
   login: {
     backgroundColor: primaryColor,
     height: "100%",
@@ -16,8 +21,10 @@ const styles = StyleSheet.create({
 
   inputsContainer: {
     ...mixins.inputsContainer,
-    marginTop: 15,
-    height: "70%",
+    marginTop: 40,
+    height: "60%",
+    display: "flex",
+    gap: 30,
   },
 
   logInButtonCnt: {

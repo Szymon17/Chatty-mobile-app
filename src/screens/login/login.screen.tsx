@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <View style={styles.login}>
-      <View style={mixins.titleContainer}>
+      <View style={styles.title}>
         <Text style={mixins.navTitle}>Welcome back</Text>
       </View>
       <View style={mixins.bodyContainer}>
