@@ -44,3 +44,14 @@ export const GET_ROOM = gql`
     }
   }
 `;
+
+export const OnMessageAdded = gql`
+  subscription onMessageAdded($RoomID: String!) {
+    messageAdded(roomId: $RoomID) {
+      body
+      user {
+        id
+      }
+    }
+  }
+`;

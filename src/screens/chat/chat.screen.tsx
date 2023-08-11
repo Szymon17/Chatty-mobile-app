@@ -1,11 +1,11 @@
 import styles from "./chat.styles";
 import mixins from "../../utils/styleMixins";
-import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useQuery } from "@apollo/client";
 import { GET_ROOM } from "../../utils/queries";
-import { queryRoomType } from "../../utils/types";
+import { messageSnapshot, queryRoomType } from "../../utils/types";
 import Navigation from "../../components/navigation/navigation.component";
 import FormInput from "../../components/formInput/formInput.component";
 import PlusIcon from "../../../assets/icons/plus.svg";
@@ -13,17 +13,22 @@ import ProfileIcon from "../../../assets/icons/profile.svg";
 import PhoneIcon from "../../../assets/icons/phone.svg";
 import VideocallIcon from "../../../assets/icons/videocall.svg";
 import SendIcon from "../../../assets/icons/send.svg";
+import Message from "../../components/message/message.component";
 
 const Chat = () => {
   const navigate = useNavigate();
   const ID = useParams()["*"];
 
-  const [message, setMessage] = useState("");
+  const scrollViewRef = useRef<any>(null);
+
   const { data, error } = useQuery<queryRoomType>(GET_ROOM, { variables: { ID } });
+  const [sendMessage, setSendMessage] = useState("");
+  const [messages, setMessages] = useState<messageSnapshot[]>([]);
 
   useEffect(() => {
-    if (error) navigate("/rooms");
-  }, [error]);
+    if (data) setMessages(Array(...data.room.messages).reverse());
+    else if (error) navigate("/login");
+  }, [data, error]);
 
   return (
     <View style={mixins.route}>
@@ -43,10 +48,19 @@ const Chat = () => {
           <VideocallIcon />
         </View>
       </Navigation>
-      <View style={styles.messagesBox}></View>
+
+      <ScrollView
+        ref={scrollViewRef}
+        onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: false })}
+        contentContainerStyle={styles.messagesBox}
+      >
+        {messages.map((message, index) => (
+          <Message key={index} message={message} />
+        ))}
+      </ScrollView>
       <View style={styles.sendMessageBox}>
         <View style={{ flexGrow: 1 }}>
-          <FormInput focusStyle={true} aditionalInputStyles={{ borderBottomRightRadius: 0 }} onChangeText={value => setMessage(value)} />
+          <FormInput focusStyle={true} aditionalInputStyles={{ borderBottomRightRadius: 0 }} onChangeText={value => setSendMessage(value)} />
         </View>
         <SendIcon />
       </View>

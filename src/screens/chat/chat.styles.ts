@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
 
   messagesBox: {
     flexGrow: 1,
+    paddingLeft: 40,
+    paddingRight: 20,
+    paddingVertical: "10%",
+    gap: 30,
   },
 
   sendMessageBox: {
