@@ -45,6 +45,14 @@ export const GET_ROOM = gql`
   }
 `;
 
+export const AddMessage = gql`
+  mutation SendMessage($Body: String!, $RoomID: String!) {
+    sendMessage(body: $Body, roomId: $RoomID) {
+      id
+    }
+  }
+`;
+
 export const OnMessageAdded = gql`
   subscription onMessageAdded($RoomID: String!) {
     messageAdded(roomId: $RoomID) {
@@ -52,6 +60,14 @@ export const OnMessageAdded = gql`
       user {
         id
       }
+    }
+  }
+`;
+
+export const OnUserTyping = gql`
+  subscription onUserTyping($RoomID: String!) {
+    typingUser(roomId: $RoomID) {
+      id
     }
   }
 `;

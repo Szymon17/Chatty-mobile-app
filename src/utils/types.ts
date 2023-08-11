@@ -20,7 +20,7 @@ export type queryRoomsType = {
   usersRooms: roomsType;
 };
 
-type userSnapshot = {
+export type userSnapshot = {
   firstName: string;
   lastName: string;
   id: string;

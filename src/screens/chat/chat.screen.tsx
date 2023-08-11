@@ -1,11 +1,11 @@
 import styles from "./chat.styles";
 import mixins from "../../utils/styleMixins";
-import { useEffect, useState, useRef } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { useState, useRef, useEffect } from "react";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
-import { useQuery, useSubscription } from "@apollo/client";
-import { GET_ROOM, OnMessageAdded } from "../../utils/queries";
-import { messageSnapshot, queryRoomType } from "../../utils/types";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
+import { AddMessage, GET_ROOM, OnMessageAdded, OnUserTyping } from "../../utils/queries";
+import { messageSnapshot, queryRoomType, userSnapshot } from "../../utils/types";
 import Navigation from "../../components/navigation/navigation.component";
 import FormInput from "../../components/formInput/formInput.component";
 import PlusIcon from "../../../assets/icons/plus.svg";
@@ -19,25 +19,47 @@ const Chat = () => {
   const navigate = useNavigate();
   const ID = useParams()["*"];
 
-  const scrollViewRef = useRef<any>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  const { data, error } = useQuery<queryRoomType>(GET_ROOM, { variables: { ID } });
-  const [sendMessage, setSendMessage] = useState("");
+  const [messageToSend, setSendMessage] = useState("");
   const [messages, setMessages] = useState<messageSnapshot[]>([]);
+  const [roomUser, setRoomUser] = useState<userSnapshot>();
+  const [typingUserID, setTypingUserID] = useState("");
+  const [clearInputState, setClearInputState] = useState(false);
 
-  const subscription = useSubscription(OnMessageAdded, { variables: { RoomID: ID } });
-  const subData = subscription.data;
-  const suberror = subscription.error;
-  const subLoading = subscription.loading;
+  const [sendMessage] = useMutation(AddMessage, { variables: { Body: messageToSend, RoomID: ID } });
 
-  useEffect(() => {
-    console.log(subData, suberror, subLoading);
-  }, [subData, suberror]);
+  useQuery<queryRoomType>(GET_ROOM, {
+    variables: { ID },
+    onCompleted: data => {
+      setMessages(Array(...data.room.messages).reverse());
+      setRoomUser(data.room.user);
+    },
+    fetchPolicy: "network-only",
+  });
 
-  useEffect(() => {
-    if (data) setMessages(Array(...data.room.messages).reverse());
-    else if (error) navigate("/login");
-  }, [data, error]);
+  useSubscription<{ messageAdded: messageSnapshot }>(OnMessageAdded, {
+    variables: { RoomID: ID },
+    onData: ({ data }) => {
+      if (data.data && data.data.messageAdded) {
+        const { user, body } = data.data.messageAdded;
+        setMessages(prev => [...prev, { body, user }]);
+      }
+    },
+  });
+
+  useSubscription<{ typingUser: userSnapshot }>(OnUserTyping, {
+    variables: { RoomID: ID },
+    onData: ({ data }) => {
+      if (data.data && data.data.typingUser) setTypingUserID(data.data.typingUser.id);
+    },
+  });
+
+  const sendMessagehandler = () => {
+    setClearInputState(true);
+    sendMessage();
+    setTimeout(() => setClearInputState(false), 10);
+  };
 
   return (
     <View style={mixins.route}>
@@ -48,7 +70,7 @@ const Chat = () => {
         <View style={styles.userBox}>
           <ProfileIcon width="44" height="44" />
           <View style={{ marginLeft: 10 }}>
-            {data && <Text style={styles.userName}>{`${data.room.user.firstName}  ${data.room.user.lastName}`}</Text>}
+            {roomUser && <Text style={styles.userName}>{`${roomUser.firstName}  ${roomUser.lastName}`}</Text>}
             <Text style={styles.activeStatus}>Active now</Text>
           </View>
         </View>
@@ -59,19 +81,40 @@ const Chat = () => {
       </Navigation>
 
       <ScrollView
+        onContentSizeChange={() => scrollViewRef.current !== null && scrollViewRef.current.scrollToEnd()}
         ref={scrollViewRef}
-        onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: false })}
-        contentContainerStyle={styles.messagesBox}
+        contentContainerStyle={[styles.messagesBox, typingUserID ? styles.sendMessagesBoxTypingUser : null]}
       >
         {messages.map((message, index) => (
           <Message key={index} message={message} />
         ))}
+        {typingUserID && (
+          <View style={styles.typingUserBox}>
+            <ProfileIcon width="20" />
+            <View style={styles.typingUser}>
+              <View style={styles.typingUserCircle} />
+              <View style={styles.typingUserCircle} />
+              <View style={styles.typingUserCircle} />
+            </View>
+          </View>
+        )}
       </ScrollView>
+
       <View style={styles.sendMessageBox}>
         <View style={{ flexGrow: 1 }}>
-          <FormInput focusStyle={true} aditionalInputStyles={{ borderBottomRightRadius: 0 }} onChangeText={value => setSendMessage(value)} />
+          <FormInput
+            clear={clearInputState}
+            focusStyle={true}
+            onPressIn={() => {
+              if (scrollViewRef.current !== null) scrollViewRef.current.scrollToEnd();
+            }}
+            aditionalInputStyles={{ borderBottomRightRadius: 0 }}
+            onChangeText={value => setSendMessage(value)}
+          />
         </View>
-        <SendIcon />
+        <Pressable onPress={sendMessagehandler}>
+          <SendIcon />
+        </Pressable>
       </View>
     </View>
   );

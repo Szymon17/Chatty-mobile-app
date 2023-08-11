@@ -24,12 +24,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 
-  messagesBox: {
+  scrollBox: {
     flexGrow: 1,
+  },
+
+  messagesBox: {
     paddingLeft: 40,
     paddingRight: 20,
     paddingVertical: "10%",
     gap: 30,
+  },
+
+  sendMessagesBoxTypingUser: {
+    paddingBottom: "20%",
   },
 
   sendMessageBox: {
@@ -42,6 +49,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     backgroundColor: primaryColor,
+  },
+
+  typingUserBox: {
+    position: "absolute",
+    left: "5%",
+    bottom: 0,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  typingUser: {
+    paddingHorizontal: 5,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    marginLeft: 10,
+    width: 70,
+    height: 30,
+    backgroundColor: "white",
+    borderRadius: 12,
+    borderBottomLeftRadius: 0,
+  },
+
+  typingUserCircle: {
+    width: 8,
+    height: 8,
+    backgroundColor: primaryColor,
+    borderRadius: 5,
   },
 });
 
