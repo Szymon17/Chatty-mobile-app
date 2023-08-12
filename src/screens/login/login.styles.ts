@@ -14,10 +14,11 @@ const styles = StyleSheet.create({
   },
 
   description: {
+    ...mixins.fontPopins,
     marginTop: 50,
     color: "white",
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "300",
   },
 
   inputsContainer: {

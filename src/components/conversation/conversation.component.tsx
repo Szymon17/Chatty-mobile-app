@@ -1,3 +1,4 @@
+import mixins from "../../utils/styleMixins";
 import styles from "./conversation.styles";
 import { FC } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -27,8 +28,8 @@ const Conversation: FC<props> = ({ id, name, lastMessage, lastMessageDate, newMe
     <Pressable onPress={() => navigate(id)} style={[styles.conversation, newMessage && styles.newMessageBackground]}>
       <Profile />
       <View style={styles.description}>
-        <Text style={[styles.conversationTitle, newMessage && styles.newMessageText]}>{name}</Text>
-        <Text style={[styles.lastMessage, newMessage && styles.newMessageText]}>{lastMessage}</Text>
+        <Text style={[styles.conversationTitle, mixins.fontPopins, newMessage && styles.newMessageText]}>{name}</Text>
+        <Text style={[styles.lastMessage, mixins.fontPopins, newMessage && styles.newMessageText]}>{lastMessage}</Text>
       </View>
       {newMessage ? <View style={styles.newMessageStatus} /> : <Text style={styles.timeFromLastMessage}>{calculateTimeFromLastMessage()}</Text>}
     </Pressable>

@@ -1,3 +1,4 @@
+import mixins from "../../utils/styleMixins";
 import { StyleSheet } from "react-native";
 import { secondaryColor } from "../../utils/styleVaribles";
 
@@ -8,6 +9,7 @@ const styles = StyleSheet.create({
   },
 
   label: {
+    ...mixins.fontPopins,
     position: "absolute",
     left: 0,
     top: -20,

@@ -70,8 +70,8 @@ const Chat = () => {
         <View style={styles.userBox}>
           <ProfileIcon width="44" height="44" />
           <View style={{ marginLeft: 10 }}>
-            {roomUser && <Text style={styles.userName}>{`${roomUser.firstName}  ${roomUser.lastName}`}</Text>}
-            <Text style={styles.activeStatus}>Active now</Text>
+            {roomUser && <Text style={[styles.userName, mixins.fontPopins]}>{`${roomUser.firstName}  ${roomUser.lastName}`}</Text>}
+            <Text style={[styles.activeStatus, mixins.fontPopins]}>Active now</Text>
           </View>
         </View>
         <View style={mixins.iconsContainer}>

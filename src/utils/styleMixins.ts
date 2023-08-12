@@ -1,11 +1,11 @@
-import { primaryColor, primaryColorLighter, secondaryColor } from "./styleVaribles";
+import { primaryColorLighter, secondaryColor } from "./styleVaribles";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   navTitle: {
     color: secondaryColor,
-    fontSize: 30,
-    fontWeight: "800",
+    fontSize: 28,
+    fontFamily: "PoppinsExtra",
   },
 
   titleContainer: {
@@ -55,6 +55,10 @@ export default StyleSheet.create({
     height: "100%",
     display: "flex",
     backgroundColor: primaryColorLighter,
+  },
+
+  fontPopins: {
+    fontFamily: "PoppinsRegular",
   },
 
   routeBody: {

@@ -1,4 +1,5 @@
 import styles from "./message.styles";
+import mixins from "../../utils/styleMixins";
 import { FC, useContext, useEffect } from "react";
 import { messageSnapshot } from "../../utils/types";
 import { View, Text } from "react-native";
@@ -17,7 +18,7 @@ const Message: FC<props> = ({ message }) => {
 
   return (
     <View style={[styles.message, user?.id === message.user.id ? styles.userMessage : styles.frendMessage]}>
-      <Text style={user?.id === message.user.id && styles.userText}>{message.body}</Text>
+      <Text style={[user?.id === message.user.id && styles.userText, mixins.fontPopins]}>{message.body}</Text>
     </View>
   );
 };

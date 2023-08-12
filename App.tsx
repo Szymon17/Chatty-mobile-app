@@ -6,8 +6,19 @@ import Rooms from "./src/screens/rooms/rooms.screen";
 import client from "./src/utils/gql.config";
 import Chat from "./src/screens/chat/chat.screen";
 import Register from "./src/screens/register/register.screen";
+import { useFonts } from "expo-font";
 
 export default function App() {
+  const [loaded] = useFonts({
+    Poppins: require("./assets/fonts/Poppins-Black.ttf"),
+    PoppinsExtra: require("./assets/fonts/Poppins-ExtraBold.ttf"),
+    PoppinsRegular: require("./assets/fonts/Poppins-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <ApolloProvider client={client}>
       <UserProvider>
