@@ -1,6 +1,6 @@
 export const validate = {
   email: (email: string): boolean => {
-    const regExp = /^([\S]+)@([\w]+)\.([\w]+)$/;
+    const regExp = /^([\S]+)@([\w]+)\.([\w]+)/;
 
     return Boolean(email.match(regExp));
   },

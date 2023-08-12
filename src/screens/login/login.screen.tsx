@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-native";
 import { UserContext } from "../../contexts/user.context";
 import FormInput from "../../components/formInput/formInput.component";
 import CustomButton from "../../components/cutom-button/cutom-button.component";
+import { validate } from "../../utils/functions";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ const Login = () => {
     else if (dataError) console.log(dataError.cause);
   }, [user, dataError]);
 
+  const loginHandler = () => {
+    if (!validate.email(email)) console.log("bad email");
+    else tryLogin(email, password);
+  };
+
   return (
     <View style={styles.login}>
       <View style={styles.title}>
@@ -31,7 +37,7 @@ const Login = () => {
           <FormInput secureText={true} onChangeText={value => setPassword(value)} label="password" />
         </View>
         <View style={mixins.bottomBtnContainer}>
-          <CustomButton handler={() => tryLogin(email, password)} title="Log in"></CustomButton>
+          <CustomButton handler={loginHandler} title="Log in" />
           <View style={[mixins.flexCenterRowDisplay, styles.registerToLink]}>
             <Text style={styles.whiteText}>Don't have an account?</Text>
             <Link to={"/register"}>
