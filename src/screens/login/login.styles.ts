@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
   inputsContainer: {
     ...mixins.inputsContainer,
-    marginTop: 40,
+    marginTop: "20%",
     flexGrow: 1,
     display: "flex",
     gap: 30,
