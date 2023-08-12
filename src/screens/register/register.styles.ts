@@ -8,32 +8,34 @@ const styles = StyleSheet.create({
     height: "20%",
   },
 
-  login: {
+  register: {
     backgroundColor: primaryColor,
     height: "100%",
   },
 
-  description: {
-    marginTop: 50,
-    color: "white",
-    fontSize: 20,
-    fontWeight: "600",
-  },
-
   inputsContainer: {
     ...mixins.inputsContainer,
-    marginTop: 40,
+    marginTop: 30,
     flexGrow: 1,
     display: "flex",
     gap: 30,
   },
 
+  privacyPolicyBox: {
+    marginTop: 10,
+  },
+
   registerToLink: {
-    marginTop: 30,
+    marginTop: 10,
   },
 
   whiteText: {
     color: "white",
+    textAlign: "center",
+  },
+
+  blueLink: {
+    color: "#259DFA",
   },
 
   link: {

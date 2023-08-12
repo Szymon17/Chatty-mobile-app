@@ -1,6 +1,6 @@
 import styles from "./chat.styles";
 import mixins from "../../utils/styleMixins";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { View, Text, ScrollView, Pressable } from "react-native";
 import { useNavigate, useParams } from "react-router-native";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";

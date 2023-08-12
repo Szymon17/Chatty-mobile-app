@@ -19,8 +19,21 @@ export default StyleSheet.create({
   bodyContainer: {
     position: "relative",
     height: "80%",
-    paddingTop: 50,
     paddingHorizontal: 10,
+  },
+
+  bottomBtnContainer: {
+    marginTop: 30,
+    width: "100%",
+    marginBottom: 20,
+  },
+
+  flexCenterRowDisplay: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
   },
 
   inputsContainer: {

@@ -1,22 +1,23 @@
-import { useState, useContext, useEffect } from "react";
 import styles from "./login.styles";
 import mixins from "../../utils/styleMixins";
+import { useState, useContext, useEffect } from "react";
 import { View, Text } from "react-native";
+import { useNavigate, Link } from "react-router-native";
+import { UserContext } from "../../contexts/user.context";
 import FormInput from "../../components/formInput/formInput.component";
 import CustomButton from "../../components/cutom-button/cutom-button.component";
-import { useNavigate } from "react-router-native";
-import { UserContext } from "../../contexts/user.context";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, tryLogin } = useContext(UserContext);
+  const { user, dataError, tryLogin } = useContext(UserContext);
 
   useEffect(() => {
     if (user) navigate("/rooms");
-  }, [user]);
+    else if (dataError) console.log(dataError.cause);
+  }, [user, dataError]);
 
   return (
     <View style={styles.login}>
@@ -29,8 +30,14 @@ const Login = () => {
           <FormInput onChangeText={value => setEmail(value)} label="e-mail addres" />
           <FormInput secureText={true} onChangeText={value => setPassword(value)} label="password" />
         </View>
-        <View style={styles.logInButtonCnt}>
+        <View style={mixins.bottomBtnContainer}>
           <CustomButton handler={() => tryLogin(email, password)} title="Log in"></CustomButton>
+          <View style={[mixins.flexCenterRowDisplay, styles.registerToLink]}>
+            <Text style={styles.whiteText}>Don't have an account?</Text>
+            <Link to={"/register"}>
+              <Text style={styles.link}>Sing up</Text>
+            </Link>
+          </View>
         </View>
       </View>
     </View>

@@ -53,6 +53,14 @@ export const AddMessage = gql`
   }
 `;
 
+export const REGISTER_USER = gql`
+  mutation Register($Email: String!, $FirstName: String!, $LastName: String!, $Password: String!, $PasswordConfirmation: String!) {
+    registerUser(email: $Email, firstName: $FirstName, lastName: $LastName, password: $Password, passwordConfirmation: $PasswordConfirmation) {
+      id
+    }
+  }
+`;
+
 export const OnMessageAdded = gql`
   subscription onMessageAdded($RoomID: String!) {
     messageAdded(roomId: $RoomID) {
